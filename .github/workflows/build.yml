@@ -350,7 +350,7 @@ jobs:
       - name: create AVD and generate snapshot for caching
         if: steps.avd-cache.outputs.cache-hit != 'true'
         id: avd_create
-        uses: Wandalen/wretry.action@v3.7.3
+        uses: Wandalen/wretry.action@v3.8.0
         with: 
           action: reactivecircus/android-emulator-runner@v2
           attempt_limit: 5
@@ -420,7 +420,7 @@ jobs:
 
       ## Run tests with some redundancy - 5 Checks
       - name: Run tests
-        uses: Wandalen/wretry.action@v3.7.3
+        uses: Wandalen/wretry.action@v3.8.0
         with: 
           action: reactivecircus/android-emulator-runner@v2
           attempt_limit: 5
