@@ -105,7 +105,21 @@ public class ALVRActivity extends AppCompatActivity
         float refreshRate = display.getRefreshRate();
         Log.i(TAG, "Refresh rate: " + refreshRate);
 
-        initializeNative(width, height, refreshRate);
+        // Options chosen on the Settings screen (InitActivity -> Settings).
+        SharedPreferences appSettings = getSharedPreferences(SettingsActivity.PREFS, MODE_PRIVATE);
+        boolean enableARCore =
+                appSettings.getBoolean(
+                        SettingsActivity.KEY_ARCORE_ENABLED,
+                        SettingsActivity.DEFAULT_ARCORE_ENABLED);
+        Log.i(TAG, "ARCore enabled in settings: " + enableARCore);
+
+        initializeNative(width, height, refreshRate, enableARCore);
+        setStreamFovScaleNative(
+                appSettings.getFloat(
+                        SettingsActivity.KEY_FOV_SCALE, SettingsActivity.DEFAULT_FOV_SCALE));
+        setFloorModeNative(
+                appSettings.getInt(
+                        SettingsActivity.KEY_FLOOR_MODE, SettingsActivity.DEFAULT_FLOOR_MODE));
 
         setContentView(R.layout.activity_vr);
         glView = findViewById(R.id.surface_view);
@@ -285,7 +299,11 @@ public class ALVRActivity extends AppCompatActivity
     }
 
     private native void initializeNative(
-            int screenWidth, int screenHeight, float screenRefreshRate);
+            int screenWidth, int screenHeight, float screenRefreshRate, boolean enableARCore);
+
+    private native void setStreamFovScaleNative(float scale);
+
+    private native void setFloorModeNative(int mode);
 
     private native void destroyNative();
 

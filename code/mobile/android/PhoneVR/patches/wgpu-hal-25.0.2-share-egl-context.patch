@@ -1,0 +1,51 @@
+diff -ruN -x '*.bak' -x '*.orig' -x '*.rej' a/src/gles/egl.rs b/src/gles/egl.rs
+--- a/src/gles/egl.rs
++++ b/src/gles/egl.rs
+@@ -615,7 +615,8 @@
+                 wgt::Gles3MinorVersion::Version2 => 2,
+             });
+         }
+-        if flags.contains(wgt::InstanceFlags::DEBUG) {
++        // PHONEVR: no debug EGL context either (same PowerVR driver bug).
++        if false && flags.contains(wgt::InstanceFlags::DEBUG) {
+             if version >= (1, 5) {
+                 log::debug!("\tEGL context: +debug");
+                 context_attributes.push(khronos_egl::CONTEXT_OPENGL_DEBUG);
+@@ -654,11 +655,15 @@
+         gl_context_attributes.extend(&context_attributes);
+         gles_context_attributes.extend(&context_attributes);
+ 
++        // ALVR: share GL objects with the app's current EGL context, so textures created by the
++        // app (glGenTextures) are visible inside this context.
++        let share_context = egl.get_current_context();
++
+         let context = if supports_opengl {
+-            egl.create_context(display, config, None, &gl_context_attributes)
++            egl.create_context(display, config, share_context, &gl_context_attributes)
+                 .or_else(|_| {
+                     egl.bind_api(khronos_egl::OPENGL_ES_API).unwrap();
+-                    egl.create_context(display, config, None, &gles_context_attributes)
++                    egl.create_context(display, config, share_context, &gles_context_attributes)
+                 })
+                 .map_err(|e| {
+                     crate::InstanceError::with_source(
+@@ -667,7 +672,7 @@
+                     )
+                 })
+         } else {
+-            egl.create_context(display, config, None, &gles_context_attributes)
++            egl.create_context(display, config, share_context, &gles_context_attributes)
+                 .map_err(|e| {
+                     crate::InstanceError::with_source(
+                         String::from("unable to create GLES 3.x context"),
+@@ -1099,7 +1104,9 @@
+             });
+         }
+ 
+-        if self.flags.contains(wgt::InstanceFlags::VALIDATION) && gl.supports_debug() {
++        // PHONEVR: GL debug output stays off; the PowerVR GE8300 driver crashes while formatting
++        // one of its own debug messages inside glTexSubImage2D (SIGSEGV in strlen/vsnprintf).
++        if false && self.flags.contains(wgt::InstanceFlags::VALIDATION) && gl.supports_debug() {
+             log::debug!("Enabling GLES debug output");
+             unsafe { gl.enable(glow::DEBUG_OUTPUT) };
+             unsafe { gl.debug_message_callback(super::gl_debug_message_callback) };

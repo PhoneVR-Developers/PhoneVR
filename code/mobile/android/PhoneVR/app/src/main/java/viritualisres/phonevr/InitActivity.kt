@@ -58,6 +58,7 @@ class InitActivity : AppCompatActivity() {
                 else ALVRActivity::class.java
 
             startActivity(Intent(this, intentClass))
+            if (intentClass == ALVRActivity::class.java) finish()
         }
 
         swVRemember.setOnCheckedChangeListener { _, isChecked ->
@@ -68,6 +69,10 @@ class InitActivity : AppCompatActivity() {
         }
     }
 
+    fun btOnClickSettings(view: View) {
+        startActivity(Intent(this, SettingsActivity::class.java))
+    }
+
     fun btOnClickALVRStreamer(view: View) {
         val prefs = getSharedPreferences("prefs", MODE_PRIVATE)
         // Save choice after first open. alvr_server as boolean
@@ -76,6 +81,7 @@ class InitActivity : AppCompatActivity() {
 
         val intent = Intent(this, ALVRActivity::class.java)
         startActivity(intent)
+        finish()
     }
 
     fun btOnClickPVRStreamer(view: View) {

@@ -48,3 +48,9 @@ google-services.json
 
 # Android Profiling
 *.hprof
+arcore-android-sdk-main/
+/wgpu-hal-25.0.2/
+*.bak
+*.orig
+*.rej
+signing.properties

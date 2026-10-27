@@ -8,6 +8,17 @@
 
 
     <Button
+        android:id="@+id/settings_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:onClick="btOnClickSettings"
+        android:text="@string/settings"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
         android:id="@+id/alvr_streamer"
         android:layout_width="232dp"
         android:layout_height="74dp"

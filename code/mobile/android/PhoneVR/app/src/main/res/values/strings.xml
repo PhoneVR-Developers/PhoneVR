@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name_full">PhoneVR</string>
     <string name="app_name_lite">PhoneVR noGvr</string>
+    <string name="app_name">PhoneVR</string>
     <string name="app_crash_toast">Oh no :( PVR has unfortunately crashed. Dev team will be notified. You can create an issue on Github or Discord.</string>
     <string name="pc_ip">PC IP</string>
     <string name="auto">Auto</string>
@@ -23,8 +24,8 @@
     <string name="log">Log</string>
     <string name="pick_logfile">Pick a log file to open</string>
     <string name="use_phonevr_legacy_streamer">Use PhoneVR(GoogleVR API) legacy Server</string>
-    <string name="use_alvr_streamer_recommended">Use ALVR(Cardboard API) Server (recommended)</string>
-    <string name="phonevr_support_common">PhoneVR supports two VR packages, ALVR-CardboardAPI or PhoneVR-GvrAPI. You can read more about these packages in https://github.com/PhoneVR-Developers/PhoneVR#readme.</string>
+    <string name="use_alvr_streamer_recommended">Connect to ALVR Server</string>
+    <string name="phonevr_support_common">This fork of PhoneVR is only compatible with ALVR 21.0.0-dev14</string>
     <string-array name="logsFiles">
         <item>pvrlog.txt</item>
         <item>pvrDebuglog.txt</item>
@@ -39,7 +40,21 @@
     <string name="switch_viewer">
             Switch Cardboard viewer
     </string>
-    <string name="switch_phonevr_server">Switch PhoneVR Server</string>
+    <string name="switch_phonevr_server">PhoneVR Settings</string>
     <string name="remember_choice">Remember choice</string>
     <string name="max_brightness">Max Brightness</string>
+    <string name="settings">Settings</string>
+    <string name="settings_title">PhoneVR settings</string>
+    <string name="settings_arcore">Use ARCore position tracking</string>
+    <string name="settings_arcore_hint">Lets you lean and move your head. Needs a phone that supports ARCore and uses the camera. Turn it off for rotation-only (3DoF) tracking.</string>
+    <string name="settings_fov">Zoom of the streamed picture (field of view)</string>
+    <string name="settings_fov_hint">100% shows exactly what the lens geometry says. Lower values zoom in and make text easier to read. 80% is the default.</string>
+    <string name="settings_floor">Height (floor) mode</string>
+    <string name="settings_floor_hint">How your head height is worked out when ARCore is on.</string>
+    <string name="settings_note">Changes are saved straight away and apply the next time you start VR.</string>
+    <string-array name="floor_mode_choices">
+        <item>0 - Relative to where tracking started</item>
+        <item>1 - Height above the detected floor</item>
+        <item>2 - Assumed start height, eased to the floor (default)</item>
+    </string-array>
 </resources>
